@@ -21,6 +21,7 @@ Parameters of the *sisd_cummulative* function:
 <li>mu (Optional) : If mu is given the the death rate is fixed. If this is None, then an optimal mu is choosen using the data-driven algorithm</li> 
 </ul>
 <br><br>
+
 ### Flow Chart of the above time periods:<br>
 
 ![alt text](https://github.com/abh2k/sisd/blob/main/Flow_Chart.png?raw=true)
