@@ -29,8 +29,8 @@ Parameters of the *sisd_cummulative* function:
 
 The data should be a dataframe with three columns -> *Status*, *Date*, *Count*. <br>
 <ul>
-  <li>Status : Can contain three values -> *Confirmed*, *Recovered*, *Deceased*</li>  
-  <li>Date : The date in the *DD-MonthName-YY* format. For example: *14th March 2020* in this format will be *14-Mar-20*.
+  <li>Status : Can contain three values -> <b>Confirmed, Recovered, Deceased</b></li>  
+  <li>Date : The date in the <b>DD-MonthName-YY</b> format. For example: <b>14th March 2020</b> in this format will be <b>14-Mar-2</b>.
   <li>Count : The number of the specified case.
 </ul>
 
