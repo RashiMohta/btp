@@ -5,15 +5,34 @@ This SISD library can be intatalled using the following command: <br>
 This library can be imported using: <br>
 *library(SISD)*<br><br>
 
-Parameters of the SISD function:
+The function can be called as: <br>
+*sisd_cummulative(N, gamma, T_Current, T_Validation, T_Limit, T_Pred, Data)
+<br><br>
+
+Parameters of the *sisd_cummulative* function:
 <ul>
 <li>N : The total population number</li>
 <li>gamma : The recovery rate</li>
 <li>T_Current : Denotes the day when the training phase ends. After this day, the prediction phase starts.</li>
-<li>T_Start : Denotes the minimum length of the training phase (in days).</li>
 <li>T_Validation : Length of Validation Period</li>
 <li>T_Limit : Denotes the upper limit of the number of additional days that can be added to the minimum training phase to optimally choose the training phase.</li>
 <li>T_Pred : Denotes the length of the prediction phase (in days).</li> 
-<li>data : The dataframe containing the observed data in the format specified below.</li>
+<li>Data : The dataframe containing the observed data in the format specified below.</li>
 <li>mu (Optional) : If mu is given the the death rate is fixed. If this is None, then an optimal mu is choosen using the data-driven algorithm</li> 
 </ul>
+<br><br>
+### Flow Chart of the above time periods:<br>
+
+![alt text](https://github.com/abh2k/sisd/blob/main/Flow_Chart.png?raw=true)
+
+### Data format of *Data* parameter:<br>
+
+The data should be a dataframe with three columns -> *Status*, *Date*, *Count*. <br>
+<ul>
+  <li>Status : Can contain three values -> *Confirmed*, *Recovered*, *Deceased*</li>  
+  <li>Date : The date in the *DD-MonthName-YY* format. For example: *14th March 2020* in this format will be *14-Mar-20*.
+  <li>Count : The number of the specified case.
+</ul>
+
+### WorkFlow:
+The code will calculate the cumulative number of cases on the dates with the *Data*. The it will use the data-driven algorithm to estimate *beta* and *mu*, and will generate a dataframe with the predictions.
