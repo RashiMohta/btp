@@ -39,5 +39,5 @@ The data should be a dataframe with three columns -> *Status*, *Date*, *Count*. 
 The code will calculate the cumulative number of cases on the dates with the *Data*. The it will use the data-driven algorithm to estimate *beta* and *mu*, and will generate a dataframe with the predictions.
 
 ###  Example Run:
-An example run of this library is available at *sample.R* file in this repository.
+An example run of this library is available at *sample_code.R* file in this repository.
 The data we will use is available at [State Wise Daily India Dataset](https://api.covid19india.org/csv/latest/state_wise_daily.csv).
