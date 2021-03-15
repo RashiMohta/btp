@@ -6,7 +6,7 @@ This library can be imported using: <br>
 *library(SISD)*<br><br>
 
 The function can be called as: <br>
-*sisd_cummulative(N, gamma, T_Current, T_Validation, T_Limit, T_Pred, Data)* 
+*sisd_cummulative(N, gamma, T_Current, T_Validation, T_Limit, T_Pred, Data, mu)* 
 <br><br>
 
 Parameters of the *sisd_cummulative* function:
