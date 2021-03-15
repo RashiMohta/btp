@@ -5,6 +5,10 @@ This SISD library can be intatalled using the following command: <br>
 This library can be imported using: <br>
 *library(SISD)*<br><br>
 
+### Authors
+Abhinav Anand, Saurabh Kumar, and Palash Ghosh
+<br><br>
+### Parameters
 The function can be called as: <br>
 *sisd_cummulative(N, gamma, T_Current, T_Validation, T_Limit, T_Pred, Data, mu)* 
 <br><br>
@@ -34,7 +38,9 @@ The data should be a dataframe with three columns -> *Status*, *Date*, *Count*. 
   <li>Date : The date in the <b>DD-MonthName-YYYY</b> format. For example: <b>14th March 2021</b> in this format will be <b>14-Mar-2021</b>.
   <li>Count : The number of the specified case.
 </ul>
-
+<br>
+Example:<br>
+![alt text](https://github.com/abh2k/sisd/blob/main/Data.png?raw=true)
 ### WorkFlow:
 The code will calculate the cumulative number of cases on the dates with the *Data*. The it will use the data-driven algorithm to estimate *beta* and *mu*, and will generate a dataframe with the predictions.
 
