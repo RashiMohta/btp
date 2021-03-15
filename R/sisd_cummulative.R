@@ -16,22 +16,22 @@ sisd_cummulative <-
            mu) {
     library(pracma)
     library(ggplot2)
-    
+
     min_mu = 0.01
     max_mu = 0.1
     mu_step = 0.001
-    
+
     if (!missing(mu)) {
       min_mu = mu
       max_mu = mu
     }
-    
-    
+
+
     dt <- vector()
     c <- vector()
     r <- vector()
     d <- vector()
-    
+
     for (i in 1:nrow(data)) {
       row <- data[i, ]
       status <- row$Status
@@ -46,7 +46,7 @@ sisd_cummulative <-
       else if (strcmp(status, "Deceased"))
         d <- append(d, num)
     }
-    
+
     get_data <- function(dt, c, r, d, N) {
       sus <- vector()
       cum_inf <- vector()
@@ -80,9 +80,9 @@ sisd_cummulative <-
         )
       return(ret)
     }
-    
+
     odata <- get_data(dt, c, r, d, population)
-    
+
     sisd <-
       function(N,
                beta,
@@ -130,7 +130,7 @@ sisd_cummulative <-
         )
         return(ret)
       }
-    
+
     sisd_pred <-
       function(N,
                beta,
@@ -179,13 +179,13 @@ sisd_cummulative <-
         )
         return(ret)
       }
-    
+
     best_last_n_days <- last_n_day
     best_beta <- -1
     best_mu <- -1
     avg_error <- Inf
     loss_limit <- last_n_day
-    
+
     train_days <- vector()
     loss_train <- vector()
     itr <- 1
@@ -235,11 +235,11 @@ sisd_cummulative <-
       #loss_train <- append(loss_train, err)
       last_n_day <- last_n_day + 1
     }
-    
+
     print(paste("Optimal mu = ", best_mu))
     print(paste("Optimal beta = ", best_beta))
     print(paste("Optimal training period = ", best_last_n_days))
-    
+
     train <-
       sisd(
         population,
@@ -266,8 +266,8 @@ sisd_cummulative <-
         odata$C,
         odata$D
       )
-    
-    
+
+
     df = data.frame(
       Day = integer(),
       Count = double(),
@@ -275,7 +275,7 @@ sisd_cummulative <-
       Date = as.Date(character()),
       stringsAsFactors = FALSE
     )
-    
+
     idx <- cur_day - best_last_n_days + 1
     while (idx <= cur_day) {
       df[nrow(df) + 1, ] = list(odata$day[idx],
@@ -284,25 +284,24 @@ sisd_cummulative <-
                                 as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
     }
-    
+
     idx <- cur_day + 1
     idx1 <- 1
-    nerr <- 0
+    cur_date <- as.Date(odata$date[idx - 1], format="%d-%b-%y")
     while (idx <= cur_day + next_n_days + 1) {
-      df[nrow(df) + 1, ] = list(odata$day[idx],
+      cur_date <- as.Date(cur_date, format="%d-%m-%y") + 1
+      df[nrow(df) + 1, ] = list(idx,
                                 kk$C[idx1],
                                 "Predicted",
-                                as.Date(odata$date[idx], "%d-%b-%y"))
-      nerr <- nerr + abs(odata$C[idx] - kk$C[idx1]) ** 2
+                                as.Date(cur_date , "%d-%m-%y"))
       idx <- idx + 1
       idx1 <- idx1 + 1
     }
-    nerr <- sqrt(nerr / idx1)
-    
+
     idx <- cur_day - best_last_n_days + 1
     idx1 <- 1
-    
-    
+
+
     while (idx <= cur_day) {
       df[nrow(df) + 1, ] = list(odata$day[idx],
                                 train$C[idx1],
@@ -311,8 +310,8 @@ sisd_cummulative <-
       idx <- idx + 1
       idx1 <- idx1 + 1
     }
-    
-    
+
+
     p <-
       ggplot(df, aes(
         x = Date,
@@ -324,7 +323,7 @@ sisd_cummulative <-
     p <-
       p + scale_x_date(date_breaks = "10 day") + labs(y = "Cumulative Number of Cases", x = "Date") +
       theme(axis.text.x = element_text(angle = 35, hjust = 1))
-    
+
     theme <- theme(
       axis.text = element_text(size = 17),
       axis.title = element_text(size = 17, face = "bold"),
@@ -334,3 +333,4 @@ sisd_cummulative <-
     p <- p + theme
     return(list(p, df))
   }
+
