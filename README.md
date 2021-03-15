@@ -40,7 +40,9 @@ The data should be a dataframe with three columns -> *Status*, *Date*, *Count*. 
 </ul>
 <br>
 Example:<br>
+
 ![alt text](https://github.com/abh2k/sisd/blob/main/Data.png?raw=true)
+
 ### WorkFlow:
 The code will calculate the cumulative number of cases on the dates with the *Data*. The it will use the data-driven algorithm to estimate *beta* and *mu*, and will generate a dataframe with the predictions.
 
