@@ -1,7 +1,7 @@
 # Installation
 
 This SISD library can be intatalled using the following command: <br>
-*library(devtools)*
+*library(devtools)* <br>
 *install_github("abh2k/sisd")*<br> <br>
 This library can be imported using: <br>
 *library(SISD)*<br><br>
