@@ -307,7 +307,7 @@ sisd_cummulative <-
 
     while (idx <= cur_day) {
       df[nrow(df) + 1,] = list(odata$day[idx],
-                               rount(train$C[idx1], 2),
+                               round(train$C[idx1], 2),
                                "Optimaly Trained",
                                as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
