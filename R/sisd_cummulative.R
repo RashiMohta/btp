@@ -294,7 +294,7 @@ sisd_cummulative <-
     nerr <- 0
     while (idx <= cur_day + next_n_days + 1) {
       df[nrow(df) + 1,] = list(odata$day[idx],
-                               kk$C[idx1],
+                               round(kk$C[idx1], 2) ,
                                "Predicted",
                                as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
@@ -307,7 +307,7 @@ sisd_cummulative <-
 
     while (idx <= cur_day) {
       df[nrow(df) + 1,] = list(odata$day[idx],
-                               train$C[idx1],
+                               rount(train$C[idx1], 2),
                                "Optimaly Trained",
                                as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
