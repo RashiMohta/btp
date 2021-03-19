@@ -195,10 +195,7 @@ sisd_cummulative <-
       mu1 = min_mu
       while (mu1 <= max_mu) {
         beta1 = 0.01
-        mu1 <- mu1 + mu_step
-	      if (!missing(mu)){	
-          mu1 <- mu	
-        }
+        
         while (beta1 < 0.3) {
           ret <-
             sisd(
@@ -233,10 +230,7 @@ sisd_cummulative <-
           }
           beta1 <- beta1 + 0.01
         }
-	        if (!missing(mu))	
-        {	
-          break	
-        }
+	mu1 <- mu1 + mu_step
       }
       #train_days <- append(train_days, last_n_day)
       #loss_train <- append(loss_train, err)
