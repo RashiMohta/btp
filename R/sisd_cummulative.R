@@ -154,10 +154,6 @@ sisd_cummulative <-
         I <- vector()
         C <- vector()
         D <- vector()
-        S <- append(S, S_P)
-        I <- append(I, I_P)
-        C <- append(C, C_P)
-        D <- append(D, D_P)
         start <- start + 1
         while (start <= cur_day + next_n) {
           S_N <- S_P - S_P * I_P * beta / N + gamma * I_P
@@ -200,6 +196,9 @@ sisd_cummulative <-
       while (mu1 <= max_mu) {
         beta1 = 0.01
         mu1 <- mu1 + mu_step
+	      if (!missing(mu)){	
+          mu1 <- mu	
+        }
         while (beta1 < 0.3) {
           ret <-
             sisd(
@@ -234,6 +233,10 @@ sisd_cummulative <-
           }
           beta1 <- beta1 + 0.01
         }
+	        if (!missing(mu))	
+        {	
+          break	
+        }
       }
       #train_days <- append(train_days, last_n_day)
       #loss_train <- append(loss_train, err)
@@ -263,8 +266,8 @@ sisd_cummulative <-
         best_beta,
         gamma,
         best_mu,
-        cur_day + 1,
-        next_n_days,
+        cur_day,
+        next_n_days + 1,
         odata$S,
         odata$I,
         odata$C,
@@ -292,9 +295,9 @@ sisd_cummulative <-
     idx <- cur_day + 1
     idx1 <- 1
     nerr <- 0
-    while (idx <= cur_day + next_n_days + 1) {
+    while (idx <= cur_day + next_n_days) {
       df[nrow(df) + 1,] = list(odata$day[idx],
-                               round(kk$C[idx1], 2) ,
+                               formatC(kk$C[idx1], digits = 2, format = "f"),
                                "Predicted",
                                as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
@@ -307,7 +310,7 @@ sisd_cummulative <-
 
     while (idx <= cur_day) {
       df[nrow(df) + 1,] = list(odata$day[idx],
-                               round(train$C[idx1], 2),
+                               formatC( train$C[idx1] , digits = 2, format = "f"),
                                "Optimaly Trained",
                                as.Date(odata$date[idx], "%d-%b-%y"))
       idx <- idx + 1
